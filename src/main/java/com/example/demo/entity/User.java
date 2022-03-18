@@ -1,40 +1,54 @@
 package com.example.demo.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 // @Entity : Hibernate translates the entity into a table
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
-	private String name;
-	private String email;
-	private String pass;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
 	
+	@Column(name = "username")
+	private String username;
+	
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
+	
+	@Column(name = "active")
+	private boolean active;
+	
+	public boolean getActive() {
+		return this.active;
+	}
 }
