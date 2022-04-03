@@ -35,26 +35,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-	        .antMatchers("/").permitAll()
-	        .antMatchers("/login").permitAll()
-	        .antMatchers("/registration").permitAll()
-	        .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-	        .authenticated().and().csrf().disable().formLogin()
-	        .loginPage("/login").failureUrl("/login?error=true")
-	        .defaultSuccessUrl("/admin/home")
-	        .usernameParameter("user_name")
-	        .passwordParameter("password")
-	        .and().logout()
-	        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-	        .logoutSuccessUrl("/login").and().exceptionHandling()
-	        .accessDeniedPage("/access-denied");
+	        	.antMatchers("/", "/login", "/registration", "/error").permitAll()
+	        	.antMatchers("/resources/**").permitAll()
+	        	.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+	        	.authenticated().and().csrf().disable()
+	        .formLogin()
+	        	.loginPage("/login").failureUrl("/login?error=true")
+	        	.defaultSuccessUrl("/admin/home")
+	        	.usernameParameter("username")
+	        	.passwordParameter("password")
+	        	.and()
+	        .logout()
+	        	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	        	.logoutSuccessUrl("/login").and().exceptionHandling()
+	        	.accessDeniedPage("/access-denied");
 	}
 	
 	@Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
-    }
+	public void configure(WebSecurity web) throws Exception { 
+		web
+			.ignoring() 
+			.antMatchers("/resources/**"); 
+	}
+	 
 	
 }
