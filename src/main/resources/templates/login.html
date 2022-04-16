@@ -1,51 +1,89 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!-- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"> -->
 
-<head>
+<html xmlns:th="http://www.thymeleaf.org">
 
-	<!-- Ref css, js libs  -->
-    <title>Spring Security Tutorial</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-</head>
-
-<body>
+	<head>
 	
-	<!-- Registration link -->
-	<!-- <form th:action="@{/registration}" method="get">
-	    <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
-	</form> -->
-	
-	<!-- Login form -->
-	<div class="container">
-	
-	    <!-- <img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo"/> -->
+	    <title>Spring Security Tutorial</title>
+		
+		<!-- Refer css libs  -->    
+		
+		<link th:href="@{/bootstrap-4.0.0-dist/css/bootstrap.min.css}" rel="stylesheet">
+	    <link th:href="@{/css/login.css}" rel="stylesheet">
 	    
-	    <form th:action="@{/login}" method="POST" class="form-signin">
-	        <h3 class="form-signin-heading text-align-center" th:text="Welcome"></h3>
-	        <br/>
-	
-	        <input type="text" id="username" name="username" placeholder="User Name"
-	               class="form-control" autocomplete="off"/> <br/>
-	        <input type="password" th:placeholder="Password"
-	               id="password" name="password" class="form-control" autocomplete="off"/> <br/>
-	
-	        <div align="center" th:if="${param.error}">
-	            <p style="font-size: 20; color: #FF1C19;">User Name or Password invalid, please verify</p>
-	        </div>
-	        
-	        <!-- Login button -->
-	        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
-	                th:text="Login"></button>
-	        
-	        <!-- Register button -->
-	        <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button>
-	        
-	    </form>
-	</div>
-</body>
+	    <!-- Refer js libs  -->
+		<!-- <script  type="text/javascript" th:src="@{/jquery-3.6.0/jquery-3.6.0.min.js}"></script> -->
+	    
+	</head>
+
+	<body>
+		
+		<!-- Login form -->
+		<div class="container">
+		    
+<!-- 		    <form th:action="@{/login}" method="POST" class="form-signin"> -->
+<!-- 		        <h3 class="text-align-center form-signin-heading" th:text="Welcome"></h3> -->
+<!-- 		        <br/> -->
+		
+<!-- 		        <input type="text" id="username" name="username" placeholder="User Name" -->
+<!-- 		               class="form-control" autocomplete="off"/> <br/> -->
+<!-- 		        <input type="password" th:placeholder="Password" -->
+<!-- 		               id="password" name="password" class="form-control" autocomplete="off"/> <br/> -->
+		
+<!-- 		        <div align="center" th:if="${param.error}"> -->
+<!-- 		            <p style="font-size: 20; color: #FF1C19;">User Name or Password invalid, please verify</p> -->
+<!-- 		        </div> -->
+		        
+<!-- 		        Login button -->
+<!-- 		        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" -->
+<!-- 		                th:text="Login"></button> -->
+		        
+<!-- 		        Register button -->
+<!-- 		        <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Registration Page</button> -->
+		        
+<!-- 		    </form> -->
+		    
+		    <div class="row">
+		        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+		            <div class="card card-signin my-5">
+		                <div class="card-body">
+		                    <h5 class="card-title text-center">Sign In</h5>
+		                    
+		                    <!-- Form signin -->
+		                    <form th:action="@{/login}" method="POST" class="form-signin">
+		                    
+		                    	<!-- Email -->
+		                        <div class="form-label-group">
+		                        	<input type="text" id="username" name="username" class="form-control" placeholder="User name" required autofocus>
+		                        	<label for="username">Email address</label>
+		                        </div>
+		                        
+		                        <!-- Password -->
+		                        <div class="form-label-group">
+		                        	<input type="password" id="password" class="form-control" placeholder="Password" required>
+		                        	<label for="password">Password</label>
+		                        </div>
+		                        
+		                        <div align="center" th:if="${param.error}">
+		                        	<p style="font-size: 20; color: #FF1C19;">User Name or Password invalid, please verify</p>
+		                        </div>
+		                        
+		                        <div class="custom-control custom-checkbox mb-3">
+		                        	<input type="checkbox" class="custom-control-input" id="customCheck1">
+		                        	<label class="custom-control-label" for="customCheck1">Remember password?</label>
+		                        </div>
+		                        <button class="btn btn-lg btn-primary btn-block text-uppercase" name="Submit" value="Login" type="submit">Sign in</button>
+		                        <hr class="my-4">
+		                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+		                        <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+		                    </form>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    
+		</div>
+	</body>
 </html>
