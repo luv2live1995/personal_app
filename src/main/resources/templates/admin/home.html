@@ -1,121 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
-<head>
-	<meta charset="utf-8">
-    <title>Admin Page</title>
-    
-    <link th:href="@{/bootstrap-4.0.0-dist/css/bootstrap.min.css}" rel="stylesheet" />
-    <link th:href="@{/bootstrap-4.0.0-dist/css/bootstrap.css}" rel="stylesheet" />
-    <link th:href="@{/bootstrap-4.0.0-dist/css/bootstrap-grid.css}" rel="stylesheet" />
-    
-    <link th:href="@{/css/home.css}" rel="stylesheet" >
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    -->
-    
-	<!-- <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script> -->
-	<!-- <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script> -->
-	
-</head>
-
-<body>
-
-	<div class="container">
-	
-		<!-- Remaining section -->
-	    <div class="panel-group" style="margin-top:40px">
-	        <div class="panel panel-primary">
-	            <div class="panel-heading">
-	                <span th:utext="${userName}"></span>
-	            </div>
-	            <div class="panel-body">
-	                <img th:src="@{/images/beer.jpg}" class="img-responsive center-block" width="400" height="400"
-	                     alt="Beer"/>
-	            </div>
-	            <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
-	        </div>
-	    </div>
-		
-		<!-- Searchbox section -->
-		<div>
-			<input  id="searchText" type="text" placeholder="Search..." name="Search">
-			<button id="searchBtn" type="submit">Search</button>
-		</div>
-		
-		<!-- Search result section -->
-		<div>
-			<p>Words</p>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Name</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:id="'word' + ${word.id} " th:each="word : ${words}" th:object="${word}" class="align-middle words-showing-section">
-		            	<td th:text="*{eng_word}" class="eng_word"></td>
-		            	<td th:text="*{jap_word}" class="jap_word"></td>
-		            	<td th:text="*{vie_word}" class="vie_word"></td>
-		        	</tr>
-				</tbody>
-				
-			</table>
-			
-		</div>
-		
-		<!-- Logout section -->
-	    <form th:action="@{/logout}" method="get">
-	        <button class="btn btn-md btn-danger btn-block" name="registration"
-	                type="Submit">Logout
-	        </button>
-	    </form>
-			
-		<script>
-			
-			// Fetch words when page is loaded
-			$( document ).ready(function() {
-			    
-			});
-			
-			
-			// Live search
-			$("#searchBtn, #searchText").on("click focusout", function(e) {
-				// Default events (page transition, data sendingなど)を無効にする
-				/* if(e.which != 13) return; */
-				e.preventDefault();
-				/* alert("321321"); */
-				/* var searchText = $("#searchText").val(); */
-				console.log(searchText);
-	
-				// Call API
-				$.ajax({
-					url : "/dictionary/getWordOnSearchText" , 
-					type : "GET",
-					data : {
-						searchText : $("#searchText").val()
-					}
-					}).done(function(data) {
-						$(".words-showing-section").empty();
-						
-						for(var i = 1; i<=data.length; i++){
-							$("#word" + i).append("<td class='eng_word'>" + data[i-1].eng_word + "</td>");
-							$("#word" + i).append("<td class='jap_word'>" + data[i-1].jap_word + "</td>");
-							$("#word" + i).append("<td class='vie_word'>" + data[i-1].vie_word + "</td>");
-						}
-					}).fail(function() {
-						alert("error!"); // 通信に失敗した場合の処理
-					})
-		
-				});
-			</script>
-		
-	</div>
-
-</body>
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" 
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta charset="UTF-8">
+		<title>Spring Security Example</title>
+	</head>
+	<body>
+		<h1>Welcome!</h1>
+<!-- 		<p>Click <a th:href="@{/hello}">here</a>to see a greeting.</p> -->
+		<p>Click <a th:href="@{/hello}">here</a>to see a greeting.</p>
+	</body>
 </html>
